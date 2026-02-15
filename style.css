@@ -14,7 +14,7 @@ body {
 
 .sidebar {
   width: 240px;
-  background: #2f2e41;
+  background: white;
   color: white;
   padding: 20px;
   height: 100vh;
@@ -30,7 +30,7 @@ body {
 }
 
 .sidebar a:hover {
-  background: #6c5ce7;
+  background: white;
 }
 
 
