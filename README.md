@@ -1,29 +1,16 @@
-# Complaint Registration System
+# React + Vite
 
-## Overview
-The Complaint Registration System is a web application designed to allow users to submit complaints easily and efficiently. It streamlines the process of complaint submission and management for organizations and individuals.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features
-- **User-Friendly Interface**: Intuitive design for easy navigation and submission of complaints.
-- **Complaint Tracking**: Users can track the status of their complaints.
-- **Admin Dashboard**: Admins can manage and respond to complaints effectively.
-- **Notifications**: Users receive notifications regarding the status of their complaints.
+Currently, two official plugins are available:
 
-## Tech Stack
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Node.js, Express
-- **Database**: MongoDB
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Usage
-- Users can register to create complaints.
-- They can view all complaints submitted and update their status.
-- Admins have the ability to view, address, and resolve complaints.
+## React Compiler
 
-## Contribution
-Contributions are welcome! Please fork the repository and submit a pull request.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Expanding the ESLint configuration
 
-## Acknowledgements
-- Thanks to all the contributors and open-source resources that made this project possible.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
