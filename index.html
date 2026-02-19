@@ -1,153 +1,69 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Civic Resolve</title>
+    <title>Civic Resolve - Submit Complaint</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <!-- Header -->
     <header>
         <div class="logo">❖ Civic Resolve</div>
-
         <nav>
             <a href="#">Submit Complaint</a>
-            <a href="dashboardAll.html">Dashboard</a>
+            <a href="#">Dashboard</a>
         </nav>
-
-        <div class="profile-dropdown">
-            <button onclick="toggleProfile()" class="profile-btn">
-                <img src="dp-boy.jpeg" class="avatar">
-                John Doe
-            </button>
-
-            <div id="myDropdown" class="dropdown-content">
-                <p class="user-name">John Doe</p>
-                <p class="user-email">john.doe@example.com</p>
-                <hr>
-                <a href="#">My Profile</a>
-                <a href="#">Settings</a>
-                <a href="#">Report Issue</a>
-                <hr>
-                <a href="#" class="logout">Log Out</a>
-            </div>
-        </div>
     </header>
 
+    <!-- Complaint Form Section -->
+    <section class="form-section">
+        <div class="form-container">
+            <h1>Report a Civic Issue</h1>
+            <p class="subtitle">Your voice makes the city better.</p>
 
-<section class="complaint-form">
-    <h2>Submit a Complaint</h2>
+            <form id="complaintForm">
 
-    <form action="#" method="POST" enctype="multipart/form-data">
+                <label>Location</label>
+                <input type="text" id="location" required>
 
-        <label>Location</label>
-        <input type="text" name="location" required>
+                <label>Issue Type</label>
+                <select id="issue" required>
+                    <option value="">Select Issue</option>
+                    <option>Road Damage</option>
+                    <option>Water Leakage</option>
+                    <option>Electricity Issue</option>
+                    <option>Garbage Collection</option>
+                    <option>Other</option>
+                </select>
 
-        <label>Issue Type</label>
-        <select name="issue" required>
-            <option value="">Select Issue</option>
-            <option value="road">Road Damage</option>
-            <option value="water">Water Leakage</option>
-            <option value="electricity">Electricity Issue</option>
-            <option value="garbage">Garbage Collection</option>
-        </select>
+                <label>Upload Photo</label>
+                <input type="file" id="photo" accept="image/*">
 
-        <label>Upload Photo</label>
-        <input type="file" name="photo" accept="image/*">
+                <label>Description</label>
+                <textarea id="description" rows="4" required></textarea>
 
-        <label>Description</label>
-        <textarea name="description" rows="4" required></textarea>
+                <button type="submit">Submit Complaint</button>
 
-        <button type="submit">Submit Complaint</button>
+            </form>
 
-    </form>
-</section>
-
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>A better community starts with you</h1>
-            <p>
-                Civic Resolve helps you report and track local issues like broken 
-                streetlights and water leaks. Your reports make a difference.
-            </p>
-
-            <div class="buttons">
-                <a href="#" class="btn-primary">Submit Complaint →</a>
-                <a href="dashboardAll.html" class="btn-secondary">Track Complaints</a>
-            </div>
-        </div>
-
-        <div class="hero-img">
-            <img src="Wb-Ant.jpg" alt="Hero Image">
+            <div id="successMessage" class="success-message"></div>
         </div>
     </section>
 
-
-    <!-- How It Works -->
-    <section class="how">
-        <h2>How It Works</h2>
-
-        <div class="steps">
-            <div class="card">
-                <h3>1. Submit</h3>
-                <p>Fill out the form and attach a photo.</p>
-            </div>
-
-            <div class="card">
-                <h3>2. Track</h3>
-                <p>Get a tracking ID and monitor status.</p>
-            </div>
-
-            <div class="card">
-                <h3>3. Resolve</h3>
-                <p>Receive notification once resolved.</p>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Features -->
-    <section class="features">
-        <h2>Designed for Community Engagement</h2>
-
-        <div class="feature-grid">
-            <div class="feature-card">
-                <img src="Wb-telephonw.jpg">
-                <h3>Easy Submission</h3>
-                <p>Submit complaints quickly and easily.</p>
-            </div>
-
-            <div class="feature-card">
-                <img src="Wb-maps.jpg">
-                <h3>Real-Time Tracking</h3>
-                <p>Track your complaint live from dashboard.</p>
-            </div>
-
-            <div class="feature-card">
-                <img src="Wb-updates.jpg">
-                <h3>Get Notified</h3>
-                <p>Receive updates via SMS or email.</p>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Dropdown Script -->
+    <!-- JavaScript for Tracking ID -->
     <script>
-        function toggleProfile() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
+        document.getElementById("complaintForm").addEventListener("submit", function(e) {
+            e.preventDefault();
 
-        window.onclick = function(event) {
-            if (!event.target.closest('.profile-btn')) {
-                document.getElementById("myDropdown").classList.remove("show");
-            }
-        }
+            const trackingID = "CR-" + Math.floor(100000 + Math.random() * 900000);
+
+            document.getElementById("successMessage").innerHTML =
+                "Complaint submitted successfully! <br> Tracking ID: <strong>" + trackingID + "</strong>";
+
+            this.reset();
+        });
     </script>
 
 </body>
