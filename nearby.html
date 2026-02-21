@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Complaints - Civic Resolve</title>
+<link rel="stylesheet" href="style.css?v=1.0">
+
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
+  header { display:flex; justify-content:space-between; align-items:center; padding:10px 20px; background:#f5f5f5; }
+  .nav-links a { margin-left:15px; text-decoration:none; color:#333; font-weight:bold; }
+  .profile-btn { background:none; border:none; cursor:pointer; display:flex; align-items:center; }
+  .avatar { width:30px; height:30px; border-radius:50%; margin-right:5px; }
+  .dropdown-content { display:none; position:absolute; right:20px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.2); padding:10px; border-radius:6px; z-index:100; }
+  .dropdown-content.show { display:block; }
+
+  .hero { text-align:center; padding:40px 10px; background:#e9f0ff; }
+  .hero h1 { font-size:2rem; line-height:1.3; margin-bottom:0.5rem; }
+  .hero p { font-size:1rem; max-width:600px; margin:0 auto; }
+
+  .how-it-works { display:flex; flex-direction:column; align-items:center; gap:20px; padding:20px 10px; }
+
+  /* Box Styling */
+  .step-item {
+      padding:20px;
+      border:1px solid #ddd;
+      border-radius:8px;
+      background:#fff;
+      width:calc(100% - 40px); /* small gap on left/right */
+      box-sizing:border-box;
+  }
+
+  .step-item.track { max-width:400px; }   /* Track box smaller width */
+  .step-item.nearby { max-width:600px; }  /* Nearby box larger width */
+
+  .btn-primary { background:#007bff; color:#fff; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; }
+
+  #map { height:350px; width:100%; margin-top:15px; border-radius:8px; }
+
+  input, select { font-size:0.95rem; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="nav-left">
+        <div class="logo"><span>❖</span> Civic Resolve</div>
+        <nav class="nav-links">
+            <a href="submit-complaint.html">Submit Complaint</a>
+            <a href="track-complaints.html">Dashboard</a>
+        </nav>
+    </div>
+    <div class="nav-right">
+        <div class="profile-dropdown">
+            <button onclick="toggleProfile()" class="profile-btn">
+                <img src="dp-boy.jpeg" alt="Profile" class="avatar">
+                <span>John Doe</span> ⌄
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                <div class="dropdown-header">
+                    <p class="user-name">John Doe</p>
+                    <p class="user-email">john.doe@example.com</p>
+                </div>
+                <a href="#">👤 My Profile</a>
+                <a href="#">⚙️ Settings</a>
+                <a href="#">🐞 Report Issue</a>
+                <hr>
+                <a href="#" class="logout">Log Out</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Track Complaints & Find Nearby Solutions</h1>
+        <p>Enter your complaint ID or select a problem type to find nearby services and contact details.</p>
+    </div>
+</section>
+
+<section class="how-it-works">
+
+    <!-- Track Complaint Box -->
+    <div class="step-item track">
+        <h3>Search by Complaint ID</h3>
+        <input type="text" id="complaintId" placeholder="Enter Complaint ID" style="padding:8px; width:80%; border-radius:6px; border:1px solid #ccc;">
+        <button onclick="trackComplaint()" class="btn-primary" style="margin-top:10px;">Track</button>
+        <div id="complaintStatus" style="margin-top:10px; color:var(--text-gray);"></div>
+    </div>
+
+    <!-- Find Nearby Box -->
+    <div class="step-item nearby">
+        <h3>Find Nearby Locations</h3>
+        <select id="problemType" style="padding:8px; width:80%; border-radius:6px; border:1px solid #ccc;">
+            <option value="">Select Problem</option>
+            <option value="streetlight">Broken Streetlight</option>
+            <option value="water">Water Leak</option>
+            <option value="garbage">Garbage Collection</option>
+            <option value="road">Road Issue</option>
+        </select>
+        <button onclick="findNearby()" class="btn-primary" style="margin-top:10px;">Find Nearby</button>
+
+        <div id="nearbyResults" style="margin-top:10px; color:var(--text-gray);"></div>
+
+        <div id="map"></div>
+    </div>
+
+</section>
+
+<script>
+function toggleProfile() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.profile-btn') && !event.target.closest('.profile-btn')) {
+        document.querySelectorAll(".dropdown-content").forEach(d => d.classList.remove('show'));
+    }
+}
+
+/* Dummy complaint tracker */
+function trackComplaint() {
+    const id = document.getElementById('complaintId').value.trim();
+    const statusDiv = document.getElementById('complaintStatus');
+    if (!id) { statusDiv.textContent = "Please enter a valid Complaint ID."; return; }
+    const statuses = ["Submitted", "In Progress", "Resolved"];
+    statusDiv.textContent = `Complaint ID ${id} is currently: ${statuses[Math.floor(Math.random()*statuses.length)]}`;
+}
+
+/* Leaflet Map Initialization */
+let map = L.map('map', {zoomControl:true}).setView([20.5937, 78.9629], 5);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+let markers = [];
+
+function findNearby() {
+    const type = document.getElementById('problemType').value;
+    const resultsDiv = document.getElementById('nearbyResults');
+    if (!type) { resultsDiv.textContent = "Please select a problem type."; return; }
+
+    const data = {
+        streetlight: [
+            { name: "Municipal Electric Dept", contact: "123-456-7890", email: "electric@city.gov", address: "Sector 12, Delhi", lat: 28.6139, lng: 77.2090 },
+            { name: "Local Electrician Co.", contact: "987-654-3210", email: "info@local-electric.com", address: "Connaught Place, Delhi", lat: 28.7041, lng: 77.1025 }
+        ],
+        water: [
+            { name: "City Water Services", contact: "555-123-4567", email: "support@citywater.com", address: "Marine Lines, Mumbai", lat: 19.0760, lng: 72.8777 },
+            { name: "Neighborhood Plumber", contact: "555-987-6543", email: "plumber@neighborhood.com", address: "Pune Road, Pune", lat: 18.5204, lng: 73.8567 }
+        ],
+        garbage: [
+            { name: "Waste Management Dept", contact: "111-222-3333", email: "waste@city.gov", address: "MG Road, Bangalore", lat: 12.9716, lng: 77.5946 }
+        ],
+        road: [
+            { name: "City Road Maintenance", contact: "444-555-6666", email: "roads@city.gov", address: "Anna Salai, Chennai", lat: 13.0827, lng: 80.2707 }
+        ]
+    };
+
+    // Clear old markers
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+
+    let html = "<ul>";
+    (data[type] || []).forEach((item,index)=>{
+        html += `<li><strong>${item.name}</strong><br>📞 ${item.contact}<br>✉️ ${item.email}<br>📍 ${item.address}<br>
+        <button onclick="focusMarker(${index})" style="margin-top:5px;padding:4px 8px;border-radius:6px;border:none;background:#007bff;color:#fff;cursor:pointer;">View on Map</button></li><br>`;
+        const marker = L.marker([item.lat,item.lng]).addTo(map)
+            .bindPopup(`<b>${item.name}</b><br>📞 ${item.contact}<br>✉️ ${item.email}<br>📍 ${item.address}`);
+        markers.push(marker);
+    });
+    html += "</ul>";
+    resultsDiv.innerHTML = html;
+
+    if(markers.length>0){
+        const group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.5));
+    }
+}
+
+function focusMarker(index){
+    const marker = markers[index];
+    if(marker){
+        map.setView(marker.getLatLng(),15);
+        marker.openPopup();
+        window.scrollTo({ top: document.getElementById('map').offsetTop - 20, behavior: 'smooth' });
+    }
+}
+</script>
+
+</body>
+</html>
