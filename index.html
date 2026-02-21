@@ -15,14 +15,14 @@
             </div>
             <nav class="nav-links">
                 <a href="#">Submit Complaint</a>
-                <a href="dashboardAll.html">Dashboard</a>
+                <a href="#">Dashboard</a>
             </nav>
         </div>
         <div class="nav-right">
             <div class="profile-dropdown">
                 <button onclick="toggleProfile()" class="profile-btn">
                     <img src="dp-boy.jpeg" alt="Profile" class="avatar">
-                    <span>John Doe</span> 
+                    <span>John Doe</span> ⌄
                 </button>
                 
                 <div id="myDropdown" class="dropdown-content">
@@ -46,7 +46,7 @@
             <p>Civic Resolve helps you report and track local issues like broken streetlights and water leaks. Your reports make a difference.</p>
             <div class="hero-buttons">
                 <a href="#" class="btn-primary">Submit a Complaint &rarr;</a>
-                <a href="dashboardAll.html" class="btn-secondary">Track Your Complaints</a>
+                <a href="#" class="btn-secondary">Track Your Complaints</a>
             </div>
         </div>
         <div class="hero-image">
@@ -133,13 +133,4 @@
     </script>
 
 </body>
-<!--chatbot -->
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<script type="module">
-	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-	createChat({
-		webhookUrl: 'https://goaish.app.n8n.cloud/webhook/2272e7ad-e37a-494c-b580-88827be476e8/chat'
-	});
-</script>
 </html>
