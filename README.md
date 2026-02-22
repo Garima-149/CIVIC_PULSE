@@ -1,16 +1,22 @@
-# React + Vite
+# CIVIC PULSE - Complaint Registration System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CIVIC PULSE is a comprehensive complaint registration system designed to empower citizens to raise their voices and address grievances effectively. The system provides a user-friendly interface for filing complaints, tracking their status, and receiving timely updates. It aims to enhance transparency and accountability in public services.
 
-Currently, two official plugins are available:
+## Features:
+- Easy complaint submission
+- Status tracking for filed complaints
+- Notifications for updates
+- Admin panel for managing complaints
+- Reports and analytics for oversight
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation:
+To set up this project locally, follow these steps:
+1. Clone the repository: `git clone https://github.com/Garima-149/CIVIC_PULSE.git`
+2. Navigate to the project directory and install dependencies.
+3. Run the application using your preferred method.
 
-## React Compiler
+## Contributing:
+We welcome contributions! Please follow the standard pull request process and ensure you include appropriate tests.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## License:
+This project is licensed under the MIT License.
