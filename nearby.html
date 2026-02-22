@@ -47,34 +47,7 @@
 </head>
 <body>
 
-<header>
-    <div class="nav-left">
-        <div class="logo"><span>❖</span> Civic Resolve</div>
-        <nav class="nav-links">
-            <a href="submit-complaint.html">Submit Complaint</a>
-            <a href="track-complaints.html">Dashboard</a>
-        </nav>
-    </div>
-    <div class="nav-right">
-        <div class="profile-dropdown">
-            <button onclick="toggleProfile()" class="profile-btn">
-                <img src="dp-boy.jpeg" alt="Profile" class="avatar">
-                <span>John Doe</span> ⌄
-            </button>
-            <div id="myDropdown" class="dropdown-content">
-                <div class="dropdown-header">
-                    <p class="user-name">John Doe</p>
-                    <p class="user-email">john.doe@example.com</p>
-                </div>
-                <a href="#">👤 My Profile</a>
-                <a href="#">⚙️ Settings</a>
-                <a href="#">🐞 Report Issue</a>
-                <hr>
-                <a href="#" class="logout">Log Out</a>
-            </div>
-        </div>
-    </div>
-</header>
+
 
 <section class="hero">
     <div class="hero-content">
@@ -192,6 +165,13 @@ function focusMarker(index){
     }
 }
 </script>
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<script type="module">
+	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
+	createChat({
+		webhookUrl: 'https://goaish.app.n8n.cloud/webhook/2272e7ad-e37a-494c-b580-88827be476e8/chat'
+	});
+</script>
 </body>
 </html>
