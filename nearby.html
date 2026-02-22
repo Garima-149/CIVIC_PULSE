@@ -46,7 +46,38 @@
 </style>
 </head>
 <body>
-
+<header>
+        <div class="nav-left">
+            <div class="logo">
+                <span>❖</span> Civic Resolve
+            </div>
+            <nav class="nav-links">
+                <a href="form.html">Submit Complaint</a>
+                <a href="dashboardAll.html">Dashboard</a>
+				<a href="nearby.html">Nearby</a>
+            </nav>
+        </div>
+        <div class="nav-right">
+            <div class="profile-dropdown">
+                <button onclick="toggleProfile()" class="profile-btn">
+                    <img src="dp-boy.jpeg" alt="Profile" class="avatar">
+                    <span>John Doe</span> 
+                </button>
+                
+                <div id="myDropdown" class="dropdown-content">
+                    <div class="dropdown-header">
+                        <p class="user-name">John Doe</p>
+                        <p class="user-email">john.doe@example.com</p>
+                    </div>
+                    <a href="#">👤 My Profile</a>
+                    <a href="#">⚙️ Settings</a>
+                  
+                    <hr>
+                    <a href="#" class="logout">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
 
 <section class="hero">
